@@ -30,6 +30,9 @@ namespace UnitTest
             _leaseWebServerId = ConfigurationManager.AppSettings["LeaseWebServerID"];
         }
 
+        /// <summary>
+        /// test
+        /// </summary>
         [TestMethod]
         public void GetDataTrafficTestMethod()
         {
