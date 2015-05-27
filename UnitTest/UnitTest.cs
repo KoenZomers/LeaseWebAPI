@@ -46,10 +46,10 @@ namespace UnitTest
         }
 
         /// <summary>
-        /// Validates that a valid response will be returned when we query for the server data traffic
+        /// Validates that a valid response will be returned when we query for the server data traffic of the last 30 days
         /// </summary>
         [TestMethod]
-        public void GetDataTrafficTestMethod()
+        public void GetDataTrafficLast30DaysTestMethod()
         {
             var leaseWebApi = new LeaseWebApi(_leaseWebApiKey);
 
@@ -57,6 +57,24 @@ namespace UnitTest
             Task.Run(async () =>
             {
                 apiResponse = await leaseWebApi.GetLeaseWebDataTraffic(_leaseWebServerId, DateTime.Now.AddDays(-30), DateTime.Now);
+            }).GetAwaiter().GetResult();
+
+            Assert.IsNotNull(apiResponse);
+            Assert.IsTrue(!string.IsNullOrEmpty(apiResponse.DataTraffic.Measurement.Total));
+        }
+
+        /// <summary>
+        /// Validates that a valid response will be returned when we query for the server data traffic of this month
+        /// </summary>
+        [TestMethod]
+        public void GetDataTrafficLastThisMonthTestMethod()
+        {
+            var leaseWebApi = new LeaseWebApi(_leaseWebApiKey);
+
+            KoenZomers.LeaseWebApi.Entities.NetworkTraffic.NetworkUsage apiResponse = null;
+            Task.Run(async () =>
+            {
+                apiResponse = await leaseWebApi.GetLeaseWebDataTrafficForThisMonth(_leaseWebServerId);
             }).GetAwaiter().GetResult();
 
             Assert.IsNotNull(apiResponse);

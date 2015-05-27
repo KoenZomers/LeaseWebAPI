@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -34,12 +35,19 @@ namespace KoenZomers.LeaseWebApi
         #region Constructors
 
         /// <summary>
-        /// Initializes a new LeaseWebApi instance
+        /// Initializes a new LeaseWebApi instance using the provided LeaseWeb API key
         /// </summary>
         /// <param name="apiKey">LeaseWeb API key to use to communicate with the services</param>
         public LeaseWebApi(string apiKey)
         {
             ApiKey = apiKey;
+        }
+
+        /// <summary>
+        /// Initializes a new LeaseWebApi instance using the settings from the AppSettings in the config file
+        /// </summary>
+        public LeaseWebApi() : this(ConfigurationManager.AppSettings["LeaseWebApiKey"])
+        {
         }
 
         #endregion
@@ -99,14 +107,14 @@ namespace KoenZomers.LeaseWebApi
         /// Retrieves the data usage for the server with the provided ID through the LeaseWeb API for the current month
         /// </summary>
         /// <param name="serverId">ID of the server for which to fetch this months data traffic</param>
-        /// <returns>Dynamic object containing the results</returns>
-        public dynamic GetLeaseWebDataTrafficForThisMonth(string serverId)
+        /// <returns>NetworkUsage entity containing the results</returns>
+        public async Task<Entities.NetworkTraffic.NetworkUsage> GetLeaseWebDataTrafficForThisMonth(string serverId)
         {
             // Calculate the dates between which to query the data usage
             var dateFrom = DateTime.Now.Day == 1 ? new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, 1) : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             var dateTo = DateTime.Now.Day == 1 ? new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1)) : new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day - 1);
 
-            return GetLeaseWebDataTraffic(serverId, dateFrom, dateTo);
+            return await GetLeaseWebDataTraffic(serverId, dateFrom, dateTo);
         }
 
         /// <summary>
