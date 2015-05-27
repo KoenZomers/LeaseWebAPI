@@ -31,7 +31,22 @@ namespace UnitTest
         }
 
         /// <summary>
-        /// test222
+        /// Validates that an exception will be thrown if an invalid API key is being used
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "Failed to query the LeaseWeb API. Status code: Forbidden.")]
+        public void InvalidApiKeyTestMethod()
+        {
+            var leaseWebApi = new LeaseWebApi("test-invalid");
+
+            Task.Run(async () =>
+            {
+                await leaseWebApi.GetLeaseWebDataTraffic(_leaseWebServerId, DateTime.Now.AddDays(-30), DateTime.Now);
+            }).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Validates that a valid response will be returned when we query for the server data traffic
         /// </summary>
         [TestMethod]
         public void GetDataTrafficTestMethod()
@@ -43,11 +58,14 @@ namespace UnitTest
             {
                 apiResponse = await leaseWebApi.GetLeaseWebDataTraffic(_leaseWebServerId, DateTime.Now.AddDays(-30), DateTime.Now);
             }).GetAwaiter().GetResult();
-            
+
             Assert.IsNotNull(apiResponse);
             Assert.IsTrue(!string.IsNullOrEmpty(apiResponse.DataTraffic.Measurement.Total));
         }
 
+        /// <summary>
+        /// Validates that a valid IP address set will be returned when we query for IP addresses assigned to our server
+        /// </summary>
         [TestMethod]
         public void GetIpAddressesTestMethod()
         {
@@ -63,6 +81,9 @@ namespace UnitTest
             Assert.IsTrue(apiResponse.IPs.Count == 9);
         }
 
+        /// <summary>
+        /// Connects directly to the LeaseWeb API, bypassing this API framework to test the functionality directly
+        /// </summary>
         [TestMethod]
         public void HttpClientTestMethod()
         {
