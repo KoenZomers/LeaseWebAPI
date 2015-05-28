@@ -7,8 +7,11 @@ using System.Configuration;
 
 namespace UnitTest
 {
+    /// <summary>
+    /// Unit Tests for the API
+    /// </summary>
     [TestClass]
-    public class UnitTest
+    public class Api
     {
         /// <summary>
         /// The API key to use to authenticate to the LeaseWeb API
@@ -67,7 +70,7 @@ namespace UnitTest
         /// Validates that a valid response will be returned when we query for the server data traffic of this month
         /// </summary>
         [TestMethod]
-        public void GetDataTrafficLastThisMonthTestMethod()
+        public void GetDataTrafficThisMonthTestMethod()
         {
             var leaseWebApi = new LeaseWebApi(_leaseWebApiKey);
 
@@ -75,7 +78,7 @@ namespace UnitTest
             Task.Run(async () =>
             {
                 apiResponse = await leaseWebApi.GetLeaseWebDataTrafficForThisMonth(_leaseWebServerId);
-            }).GetAwaiter().GetResult();
+            }).GetAwaiter().GetResult();            
 
             Assert.IsNotNull(apiResponse);
             Assert.IsTrue(!string.IsNullOrEmpty(apiResponse.DataTraffic.Measurement.Total));

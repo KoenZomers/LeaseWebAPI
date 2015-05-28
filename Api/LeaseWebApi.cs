@@ -88,7 +88,6 @@ namespace KoenZomers.LeaseWebApi
             var response = await httpClient.GetAsync(leaseWebApiUriBuilder.ToString());
 
             // Check that response was successful
-            // TODO: Add error handling
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception(string.Format("Failed to query the LeaseWeb API. Status code: {0}.", response.StatusCode));
