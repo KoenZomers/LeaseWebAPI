@@ -110,8 +110,23 @@ namespace KoenZomers.LeaseWebApi
         public async Task<Entities.NetworkTraffic.NetworkUsage> GetLeaseWebDataTrafficForThisMonth(string serverId)
         {
             // Calculate the dates between which to query the data usage
-            var dateFrom = DateTime.Now.Day == 1 ? new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, 1) : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var dateTo = DateTime.Now.Day == 1 ? new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1)) : new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day - 1);
+            var dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var dateTo = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return await GetLeaseWebDataTraffic(serverId, dateFrom, dateTo);
+        }
+
+        /// <summary>
+        /// Retrieves the data usage for the server with the provided ID through the LeaseWeb API for last month
+        /// </summary>
+        /// <param name="serverId">ID of the server for which to fetch last months data traffic</param>
+        /// <returns>NetworkUsage entity containing the results</returns>
+        public async Task<Entities.NetworkTraffic.NetworkUsage> GetLeaseWebDataTrafficForLastMonth(string serverId)
+        {
+            // Calculate the dates between which to query the data usage
+            var todayLastMonth = DateTime.Now.AddMonths(-1);
+            var dateFrom = new DateTime(todayLastMonth.Year, todayLastMonth.Month, 1);
+            var dateTo = new DateTime(todayLastMonth.Year, todayLastMonth.Month, DateTime.DaysInMonth(todayLastMonth.Year, todayLastMonth.Month));
 
             return await GetLeaseWebDataTraffic(serverId, dateFrom, dateTo);
         }

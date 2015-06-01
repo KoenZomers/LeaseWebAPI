@@ -85,6 +85,24 @@ namespace UnitTest
         }
 
         /// <summary>
+        /// Validates that a valid response will be returned when we query for the server data traffic of last month
+        /// </summary>
+        [TestMethod]
+        public void GetDataTrafficLastMonthTestMethod()
+        {
+            var leaseWebApi = new LeaseWebApi(_leaseWebApiKey);
+
+            KoenZomers.LeaseWebApi.Entities.NetworkTraffic.NetworkUsage apiResponse = null;
+            Task.Run(async () =>
+            {
+                apiResponse = await leaseWebApi.GetLeaseWebDataTrafficForLastMonth(_leaseWebServerId);
+            }).GetAwaiter().GetResult();
+
+            Assert.IsNotNull(apiResponse);
+            Assert.IsTrue(!string.IsNullOrEmpty(apiResponse.DataTraffic.Measurement.Total));
+        }
+
+        /// <summary>
         /// Validates that a valid IP address set will be returned when we query for IP addresses assigned to our server
         /// </summary>
         [TestMethod]
