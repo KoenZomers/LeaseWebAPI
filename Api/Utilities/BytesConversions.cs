@@ -23,7 +23,7 @@ namespace KoenZomers.LeaseWebApi.Utilities
             var bytes = Math.Abs(byteCount);
             var place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1000)));
             var num = Math.Round(bytes / Math.Pow(1000, place), decimalCount);
-            return (Math.Sign(byteCount) * num).ToString(CultureInfo.InvariantCulture) + suf[place];
+            return string.Concat((Math.Sign(byteCount) * num).ToString(CultureInfo.InvariantCulture), " ", suf[place]);
         }
 
         /// <summary>
