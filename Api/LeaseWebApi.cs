@@ -160,12 +160,20 @@ namespace KoenZomers.LeaseWebApi
         /// <summary>
         /// Retrieves the IP addresses assigned to the LeaseWeb account
         /// </summary>
-        /// <param name="serverId">ID of the server for which to fetch the IP addresses</param>
+        /// <param name="serverId">ID of the server for which to fetch the IP addresses. Omit to return all IP addresses regardless of the server they're assigned to.</param>
         /// <returns>Typed entity containing the results</returns>
-        public async Task<Entities.IP.IPS> GetLeaseWebIPAddresses(string serverId)
+        public async Task<Entities.IP.IPS> GetLeaseWebIPAddresses(string serverId = null)
         {
             // Execute the request
-            var result = await ExecuteLeaseWebApiRequest<Entities.IP.IPS>(string.Format("colocationServers/{0}/ips", serverId));
+            var result = await ExecuteLeaseWebApiRequest<Entities.IP.IPS>("ips");
+
+            if(!string.IsNullOrEmpty(serverId))
+            {
+                result = new Entities.IP.IPS()
+                {
+                    IPs = result.IPs.Where(ip => ip.IPDetails.ServerId == serverId).ToList()
+                };
+            }
             return result;
         }
 

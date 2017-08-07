@@ -4,3 +4,11 @@ This is still just a basic setup of a Microsoft .NET library that can be used to
 
 You can also pull this API in as a NuGet package by adding the following NuGet repository to Visual Studio:
 http://nuget.koenzomers.nl/nuget
+
+## Version History
+
+August 7, 2017 - Version 1.1.0.0
+
+- Updated Newtonsoft.JSON package to v10
+- Fixed the /colocation/<serverid>/ips call as that was no longer valid on the LeaseWeb API
+- Added sample App.sample.config files. Rename them to App.config and enter your LeaseWeb API key in it in order for the API to work.

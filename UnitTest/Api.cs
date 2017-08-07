@@ -133,7 +133,7 @@ namespace UnitTest
             string response = null;
             Task.Run(async () =>
             {
-                response = await httpClient.GetStringAsync("https://api.leaseweb.com/v1/colocationServers/" + _leaseWebServerId + "/ips");
+                response = await httpClient.GetStringAsync("https://api.leaseweb.com/v1/ips");
             }).GetAwaiter().GetResult();
 
             Assert.IsNotNull(response);
