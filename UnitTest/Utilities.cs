@@ -15,18 +15,18 @@ namespace UnitTest
         [TestMethod]
         public void BytesToFriendlyTextTestMethod()
         {
-            Assert.AreEqual("1KB", BytesConversions.BytesToFriendlyText(1000));
-            Assert.AreEqual("1MB", BytesConversions.BytesToFriendlyText(1000000));
-            Assert.AreEqual("1GB", BytesConversions.BytesToFriendlyText(1000000000));
-            Assert.AreEqual("1TB", BytesConversions.BytesToFriendlyText(1000000000000));
-            Assert.AreEqual("1PB", BytesConversions.BytesToFriendlyText(1000000000000000));
-            Assert.AreEqual("1EB", BytesConversions.BytesToFriendlyText(1000000000000000000));
+            Assert.AreEqual("1 KB", BytesConversions.BytesToFriendlyText(1000));
+            Assert.AreEqual("1 MB", BytesConversions.BytesToFriendlyText(1000000));
+            Assert.AreEqual("1 GB", BytesConversions.BytesToFriendlyText(1000000000));
+            Assert.AreEqual("1 TB", BytesConversions.BytesToFriendlyText(1000000000000));
+            Assert.AreEqual("1 PB", BytesConversions.BytesToFriendlyText(1000000000000000));
+            Assert.AreEqual("1 EB", BytesConversions.BytesToFriendlyText(1000000000000000000));
 
-            Assert.AreEqual("1.1MB", BytesConversions.BytesToFriendlyText(1100000));
-            Assert.AreEqual("2.2GB", BytesConversions.BytesToFriendlyText(2200000000));
-            Assert.AreEqual("3.3TB", BytesConversions.BytesToFriendlyText(3300000000000));
-            Assert.AreEqual("4.4PB", BytesConversions.BytesToFriendlyText(4400000000000000));
-            Assert.AreEqual("5.5EB", BytesConversions.BytesToFriendlyText(5500000000000000000));
+            Assert.AreEqual("1.1 MB", BytesConversions.BytesToFriendlyText(1100000));
+            Assert.AreEqual("2.2 GB", BytesConversions.BytesToFriendlyText(2200000000));
+            Assert.AreEqual("3.3 TB", BytesConversions.BytesToFriendlyText(3300000000000));
+            Assert.AreEqual("4.4 PB", BytesConversions.BytesToFriendlyText(4400000000000000));
+            Assert.AreEqual("5.5 EB", BytesConversions.BytesToFriendlyText(5500000000000000000));
         }
 
         /// <summary>
